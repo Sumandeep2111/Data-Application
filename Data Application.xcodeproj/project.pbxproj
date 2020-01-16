@@ -13,6 +13,8 @@
 		9B863EC123D1176400256EA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B863EBF23D1176400256EA2 /* Main.storyboard */; };
 		9B863EC323D1176700256EA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B863EC223D1176700256EA2 /* Assets.xcassets */; };
 		9B863EC623D1176700256EA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B863EC423D1176700256EA2 /* LaunchScreen.storyboard */; };
+		9B863ECF23D11CCB00256EA2 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863ECE23D11CCB00256EA2 /* Book.swift */; };
+		9B863ED123D120C500256EA2 /* BookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B863ED023D120C500256EA2 /* BookTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		9B863EC223D1176700256EA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B863EC523D1176700256EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B863EC723D1176700256EA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B863ECE23D11CCB00256EA2 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		9B863ED023D120C500256EA2 /* BookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,7 @@
 		9B863EB823D1176400256EA2 /* Data Application */ = {
 			isa = PBXGroup;
 			children = (
+				9B863ECD23D11CA600256EA2 /* Model */,
 				9B863EB923D1176400256EA2 /* AppDelegate.swift */,
 				9B863EBB23D1176400256EA2 /* SceneDelegate.swift */,
 				9B863EBD23D1176400256EA2 /* ViewController.swift */,
@@ -65,6 +70,15 @@
 				9B863EC723D1176700256EA2 /* Info.plist */,
 			);
 			path = "Data Application";
+			sourceTree = "<group>";
+		};
+		9B863ECD23D11CA600256EA2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9B863ECE23D11CCB00256EA2 /* Book.swift */,
+				9B863ED023D120C500256EA2 /* BookTableViewController.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +152,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B863ED123D120C500256EA2 /* BookTableViewController.swift in Sources */,
+				9B863ECF23D11CCB00256EA2 /* Book.swift in Sources */,
 				9B863EBE23D1176400256EA2 /* ViewController.swift in Sources */,
 				9B863EBA23D1176400256EA2 /* AppDelegate.swift in Sources */,
 				9B863EBC23D1176400256EA2 /* SceneDelegate.swift in Sources */,
