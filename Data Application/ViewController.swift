@@ -7,17 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
     var books:[Book]?
+    
     @IBOutlet var textfields: [UITextField]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        loadData()
-        NotificationCenter.default.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
+       // loadData()
+        loadCoreData()
+       // NotificationCenter.default.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(saveCoreData), name: UIApplication.willResignActiveNotification, object: nil)
     }
     func getFilePath() -> String {
         let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -84,6 +88,75 @@ class ViewController: UIViewController {
         do {
             try saveString.write(toFile: filePath, atomically: true, encoding: .utf8)
         }catch {
+            print(error)
+        }
+    }
+    
+    @objc func saveCoreData(){
+        clearCoreData()
+        // create an instance of app delegate
+        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        //second step is context
+        let managedContext = appdelegate.persistentContainer.viewContext
+        
+        
+        for book in books! {
+            let bookEntity = NSEntityDescription.insertNewObject(forEntityName: "BookModel", into: managedContext)
+            bookEntity.setValue(book, forKey: "title")
+            bookEntity.setValue(book, forKey: "author")
+            bookEntity.setValue(book, forKey: "pages")
+            bookEntity.setValue(book, forKey: "year")
+            //save data
+            
+            do{
+                try managedContext.save()
+            }catch{
+                print(error)
+            }
+        }
+        
+    }
+    
+    func loadCoreData(){
+        books = [Book]()
+        //create an instance of app delegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //second step is context
+        let managedContext = appDelegate.persistentContainer.viewContext
+        //create a fetch request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookModel")
+        do{
+            let results =  try managedContext.fetch(fetchRequest)
+            if results is [NSManagedObject] {
+                for result in results as! [NSManagedObject]{
+                    let title =  result.value(forKey: "title") as! String
+                     let author =  result.value(forKey: "author") as! String
+                     let pages =  result.value(forKey: "pages") as! Int
+                     let year =  result.value(forKey: "year") as! Int
+                    books?.append(Book(title: title, author: author, pages: pages, year: year))
+                }
+            }
+        }catch{
+            print(error)
+        }
+    }
+    
+    func clearCoreData(){
+        //create an instance of app delegate
+               let appDelegate = UIApplication.shared.delegate as! AppDelegate
+               //second step is context
+               let managedContext = appDelegate.persistentContainer.viewContext
+               //create a fetch request
+               let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BookModel")
+        fetchRequest.returnsObjectsAsFaults = false
+        do{
+            let results = try managedContext.fetch(fetchRequest)
+            for managedObjects in results {
+                if let managedObjectsData = managedObjects as? NSManagedObject{
+                    managedContext.delete(managedObjectsData)
+                }
+            }
+        }catch{
             print(error)
         }
     }
